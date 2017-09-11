@@ -422,6 +422,11 @@ class Download extends Model
 
 		// Get a fake login response
 		\JLoader::import('joomla.user.authentication');
+		// Because import( 'joomla....') does NOT include the source, ensure that the class is present to also have the class JAuthenticationResponse defined
+		if ( !class_exists( 'JAuthentication')) {
+			return false;
+		}	  
+
 		$options = array('remember' => false);
 		$response = new JAuthenticationResponse;
 		$response->status = JAuthentication::STATUS_SUCCESS;
